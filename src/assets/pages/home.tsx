@@ -1,5 +1,4 @@
-import { useEffect, useRef } from "react";
-import { Card, Row, Col } from "antd";
+import { useEffect, useRef, useState } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import { useNavigate } from "react-router-dom";
 import Background from "../constants/background/background.tsx";
@@ -13,6 +12,7 @@ import HoverSound from "../sounds/selectSound.mp3";
 
 const MainPage = () => {
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const onlineRef = useRef<Player>(null);
   const puzzleRef = useRef<Player>(null);
@@ -46,98 +46,120 @@ const MainPage = () => {
     navigate(path);
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div className="mainpage-container">
       <Background />
+      
+      {/* Mobile Menu Toggle */}
+      <button className="menu-toggle" onClick={toggleMobileMenu}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M3 6H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M3 18H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </button>
+
+      {/* Mobile Menu Overlay */}
+      <div 
+        className={`menu-overlay ${isMobileMenuOpen ? 'active' : ''}`}
+        onClick={toggleMobileMenu}
+      />
+
       <div className="content-container">
-        <div className="left-side-main">
+        <div className={`left-side-main ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
           <Menu />
         </div>
+
         <div className="middle-side-main">
-          <div className="text-banner">
-            <span className="text-banner-heading">Play Chess</span>
-            <span className="text-banner-subheading">
-              Unleash Your Strategy: Play Chess Like a Pro
-            </span>
+          {/* Hero Section */}
+          <section className="hero-section">
+            <h1 className="hero-title">Chess Master</h1>
+            <p className="hero-subtitle">
+              Experience the ultimate chess platform. Play online, solve puzzles, 
+              or challenge our AI. Elevate your game to the next level.
+            </p>
+          </section>
+
+          {/* Games Grid */}
+          <div className="games-grid">
+            {/* Online Game Card */}
+            <div
+              className="game-card online"
+              onMouseEnter={() => handleMouseEnter(onlineRef)}
+              onMouseLeave={() => handleMouseLeave(onlineRef)}
+              onClick={() => handleCardClick("/online")}
+            >
+              <div className="game-card-content">
+                <Player
+                  ref={onlineRef}
+                  autoplay={false}
+                  loop
+                  src={OnlineAnimation}
+                  className="animation-player"
+                />
+                <h3 className="game-card-title">Play Online</h3>
+                <p className="game-card-description">
+                  Challenge players from around the world in real-time matches
+                </p>
+              </div>
+            </div>
+
+            {/* Puzzle Game Card */}
+            <div
+              className="game-card puzzle"
+              onMouseEnter={() => handleMouseEnter(puzzleRef)}
+              onMouseLeave={() => handleMouseLeave(puzzleRef)}
+              onClick={() => handleCardClick("/puzzle")}
+            >
+              <div className="game-card-content">
+                <Player
+                  ref={puzzleRef}
+                  autoplay={false}
+                  loop
+                  src={PuzzleAnimation}
+                  className="animation-player"
+                />
+                <h3 className="game-card-title">Solve Puzzles</h3>
+                <p className="game-card-description">
+                  Sharpen your tactical skills with challenging chess puzzles
+                </p>
+              </div>
+            </div>
+
+            {/* Robot Game Card */}
+            <div
+              className="game-card robot"
+              onMouseEnter={() => handleMouseEnter(robotRef)}
+              onMouseLeave={() => handleMouseLeave(robotRef)}
+              onClick={() => handleCardClick("/train")}
+            >
+              <div className="game-card-content">
+                <Player
+                  ref={robotRef}
+                  autoplay={false}
+                  loop
+                  src={RobotAnimation}
+                  className="animation-player"
+                />
+                <h3 className="game-card-title">Train with AI</h3>
+                <p className="game-card-description">
+                  Practice against our intelligent AI with adjustable difficulty
+                </p>
+              </div>
+            </div>
           </div>
-          <Row gutter={16} justify="center">
-            <Col xs={24} sm={12} md={8} lg={8}>
-              <Card
-                bordered={false}
-                className="animation-card"
-                onMouseEnter={() => handleMouseEnter(onlineRef)}
-                onMouseLeave={() => handleMouseLeave(onlineRef)}
-                onClick={() => handleCardClick("/online")}
-              >
-                <div className="card-content">
-                  <Player
-                    ref={onlineRef}
-                    autoplay={false}
-                    loop
-                    src={OnlineAnimation}
-                    className="animation-player"
-                  />
-                </div>
-                <div className="card-footer online-footer">
-                  <span className="footer-text">Play Online</span>
-                </div>
-              </Card>
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={8}>
-              <Card
-                bordered={false}
-                className="animation-card"
-                onMouseEnter={() => handleMouseEnter(puzzleRef)}
-                onMouseLeave={() => handleMouseLeave(puzzleRef)}
-                onClick={() => handleCardClick("/puzzle")}
-              >
-                <div className="card-content">
-                  <Player
-                    ref={puzzleRef}
-                    autoplay={false}
-                    loop
-                    src={PuzzleAnimation}
-                    className="animation-player"
-                  />
-                </div>
-                <div className="card-footer puzzle-footer">
-                  <span className="footer-text">Play Puzzle</span>
-                </div>
-              </Card>
-            </Col>
-            <Col xs={24} sm={12} md={8} lg={8}>
-              <Card
-                bordered={false}
-                className="animation-card"
-                onMouseEnter={() => handleMouseEnter(robotRef)}
-                onMouseLeave={() => handleMouseLeave(robotRef)}
-                onClick={() => handleCardClick("/train")}
-              >
-                <div className="card-content">
-                  <Player
-                    ref={robotRef}
-                    autoplay={false}
-                    loop
-                    src={RobotAnimation}
-                    className="animation-player"
-                  />
-                </div>
-                <div className="card-footer robot-footer">
-                  <span className="footer-text">Play Vs Robot</span>
-                </div>
-              </Card>
-            </Col>
-          </Row>
-          <div className="bottom-banner">
-            <span className="banner-text">
-              © 2024 Techy Pythons. All rights reserved. Techy Pythons may earn
-              a portion of sales from products that are purchased through our
-              site as part of our Affiliate Partnerships with retailers. The
-              material on this site may not be reproduced, distributed,
-              transmitted, cached or otherwise used, except with the prior
-              written permission of Techy Pythons.
-            </span>
-          </div>
+
+          {/* Footer */}
+          <footer className="app-footer">
+            <p className="footer-text">
+              © 2024 Chess Master. All rights reserved. Built with passion for chess enthusiasts worldwide. 
+              Enhance your strategic thinking and master the royal game.
+            </p>
+          </footer>
         </div>
       </div>
     </div>

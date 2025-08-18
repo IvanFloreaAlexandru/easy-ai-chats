@@ -1,24 +1,5 @@
-import "./background.css";
 const ParticleContainer = () => {
-  return (
-    <div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-      <div className="particle"></div>
-    </div>
-  );
+  return null; // Particles removed - clean modern design
 };
 
 export default ParticleContainer;
