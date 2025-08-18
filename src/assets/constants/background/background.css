@@ -1,13 +1,15 @@
 body {
-  background-color: #161616;
+  background: var(--gradient-bg);
 }
 .particle {
   position: absolute;
   border-radius: 50%;
-  background-color: #4eddfc;
-  box-shadow: 0 0 3px #4eddfc;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--primary) / 0.6);
   animation-duration: 60s;
   animation-iteration-count: infinite;
+  opacity: 0.4;
+  backdrop-filter: blur(1px);
 }
 
 .particle:nth-child(odd) {

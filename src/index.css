@@ -1,8 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Dark theme colors */
+  --background: 210 40% 3%;
+  --foreground: 210 40% 95%;
+  
+  --primary: 217 91% 60%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 210 40% 10%;
+  --secondary-foreground: 210 40% 90%;
+  
+  --accent: 142 76% 36%;
+  --accent-foreground: 210 40% 98%;
+  
+  --muted: 210 40% 15%;
+  --muted-foreground: 210 40% 65%;
+  
+  --card: 210 40% 7%;
+  --card-foreground: 210 40% 95%;
+  
+  --border: 210 40% 20%;
+  
+  /* Chess specific colors */
+  --chess-light: 0 0% 95%;
+  --chess-dark: 210 40% 25%;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(217 91% 40%));
+  --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(142 76% 50%));
+  --gradient-bg: linear-gradient(180deg, hsl(var(--background)), hsl(210 40% 5%));
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
 body {
+  background: var(--gradient-bg);
+  color: hsl(var(--foreground));
+  font-family: 'Inter', system-ui, sans-serif;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  line-height: 1.6;
 }
+
 .header,
 body {
-  background-color: rgba(22, 22, 22, 255);
+  background: var(--gradient-bg);
+}
+
+/* Smooth transitions for all elements */
+* {
+  transition: all 0.2s ease-in-out;
 }

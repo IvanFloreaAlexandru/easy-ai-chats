@@ -1,14 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: hsl(var(--card));
+  border-bottom: 1px solid hsl(var(--border));
+  backdrop-filter: blur(15px);
 }
 
 .logo img {
-  height: 30px;
+  height: 32px;
   width: auto;
+  transition: all 0.2s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
 }
 
 .ant-menu-horizontal {
@@ -17,17 +23,20 @@
   justify-content: center;
   border: none;
   margin: 0 auto;
+  background: transparent;
 }
 
 .ant-menu-horizontal .ant-menu-item a,
 .ant-menu-horizontal .ant-menu-item a:hover,
 .ant-menu-horizontal .ant-menu-submenu-title a:hover {
-  color: #1890ff;
+  color: hsl(var(--primary));
+  transition: all 0.2s ease;
 }
 
 .ant-menu-horizontal .ant-menu-item-selected,
 .ant-menu-horizontal .ant-menu-item-active {
-  background-color: #1890ff;
+  background: var(--gradient-primary);
+  border-radius: 8px;
 }
 .sider {
   height: 100%;
@@ -50,19 +59,27 @@
 }
 
 .custom-sider .ant-layout-sider-zero-width-trigger {
-  background-color: #111 !important;
-  color: #4f4846 !important;
-  border: none !important;
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: 8px !important;
   z-index: 1000;
+  transition: all 0.2s ease;
 }
 
 .custom-sider .ant-layout-sider-zero-width-trigger:hover {
-  background-color: #222 !important;
-  color: #197221 !important;
+  background: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  transform: scale(1.05);
 }
 
 .custom-menu-label {
-  font-family: "Montserrat", sans-serif;
-  color: #ffffff;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: hsl(var(--foreground));
   font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.custom-menu-label:hover {
+  color: hsl(var(--primary));
 }
