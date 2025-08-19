@@ -56,7 +56,8 @@ html, body {
 }
 
 body {
-  background: var(--gradient-bg);
+  background: url("/background.jpeg") no-repeat center center fixed;
+  background-size: cover;
   color: hsl(var(--foreground));
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.6;

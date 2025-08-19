@@ -32,8 +32,8 @@ const MainPage = () => {
 
         <div className="middle-side-main">
           {/* Hero Section */}
-          <section className="hero-section fade-in bg-gray-800 rounded-3xl shadow-md p-10 text-center text-white">
-            <div className="chess-knight-icon text-6xl mb-4 animate-bounce">♞</div>
+          <section className="hero-section fade-in rounded-3xl shadow-md p-10 text-center text-white">
+            <div className="chess-knight-icon text-6xl mb-20 animate-bounce">♞</div>
             <h1 className="hero-title text-4xl font-bold mb-2 tracking-wide">Chess Master</h1>
             <p className="hero-subtitle text-lg opacity-90">
               Play online, solve puzzles or train with AI.
