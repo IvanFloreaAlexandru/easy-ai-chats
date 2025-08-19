@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Chessboard } from "react-chessboard";
 import Background from "../constants/background/background.jsx";
 import "../styles/play.css";
-import Menu from "../constants/menu/menu.tsx";
 import { Chess } from "chess.js";
 import useWebSocket from "react-use-websocket";
 import moveSelf from "../constants/sounds/move-self.mp3";
@@ -609,7 +608,6 @@ const OnlineGame = () => {
           {!waitingForPlayer && (
             <div className="wrapper-online">
               <div className="menu-train">
-                <Menu />
               </div>
               <div className="left-area-online">
                 <div className="player-info player-black">

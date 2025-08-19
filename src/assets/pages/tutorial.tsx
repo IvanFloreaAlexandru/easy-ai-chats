@@ -1,12 +1,10 @@
 import Background from "../constants/background/background";
-import Menu from "../constants/menu/menu";
 import "../styles/tutorial.css";
 
 const Tutorial = () => {
   return (
     <div className="container-learn">
       <div className="menu-learn">
-        <Menu />
       </div>
       <div className="content-learn">
         <Background />

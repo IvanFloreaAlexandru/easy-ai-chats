@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Background from "../constants/background/background.tsx";
-import Menu from "../constants/menu/menu.tsx";
 import "../styles/home.css";
+import Navbar from "../components/navbar";
 
 import HoverSound from "../sounds/selectSound.mp3";
 
 const MainPage = () => {
+  
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -36,44 +37,9 @@ const MainPage = () => {
   return (
     <div className="mainpage-container">
       <Background />
+      <Navbar />
       
-      {/* Top Navigation */}
-      <nav className="top-navigation">
-        <div className="logo-text">CHESS</div>
-        <div className="nav-menu">
-          <span className="nav-item" onClick={() => navigate("/tutorial")}>Learn</span>
-          <span className="nav-item" onClick={() => navigate("/profile")}>Profile</span>
-          <span className="nav-item" onClick={() => navigate("/contact")}>Contact</span>
-          <span className="nav-item" onClick={() => navigate("/about")}>About us</span>
-          <span className="nav-item" onClick={() => navigate("/update")}>Update Log</span>
-          <span className="nav-item">Log Out</span>
-        </div>
-      </nav>
-
-      {/* Mobile Navigation */}
-      <nav className="mobile-nav">
-        <div className="logo-text">CHESS</div>
-        <button className="mobile-menu-button" onClick={toggleMobileMenu}>
-          ☰
-        </button>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-menu-items">
-          <span className="nav-item" onClick={() => navigate("/tutorial")}>Learn</span>
-          <span className="nav-item" onClick={() => navigate("/profile")}>Profile</span>
-          <span className="nav-item" onClick={() => navigate("/contact")}>Contact</span>
-          <span className="nav-item" onClick={() => navigate("/about")}>About us</span>
-          <span className="nav-item" onClick={() => navigate("/update")}>Update Log</span>
-          <span className="nav-item">Log Out</span>
-        </div>
-      </div>
-
       <div className="content-container">
-        <div className={`left-side-main ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          <Menu />
-        </div>
 
         <div className="middle-side-main">
           {/* Hero Section */}

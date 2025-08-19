@@ -10,7 +10,6 @@ import moveSelf from "../constants/sounds/move-self.mp3";
 import { Button, Modal } from "antd";
 import { UserOutlined, CrownOutlined } from "@ant-design/icons";
 import wrongSound from "../constants/sounds/wrong.mp3";
-import Menu from "../constants/menu/menu";
 import ScaleLoader from "react-spinners/ScaleLoader";
 type PlayerColor = "w" | "b";
 
@@ -433,7 +432,6 @@ const PuzzleGame = () => {
 
   return (
     <div className="container-puzzle">
-      <Menu></Menu>
       {waitingForData ? (
         <div className="waiting-message">
           <ScaleLoader loading={waitingForData} color="#999" />

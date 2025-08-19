@@ -5,7 +5,6 @@ import Background from "../constants/background/background.js";
 import "../styles/train.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Flip } from "react-toastify";
-import Menu from "../constants/menu/menu.tsx";
 import wrongSound from "../constants/sounds/wrong.mp3";
 import NotificationSound from "../constants/sounds/notification.mp3";
 import { Button, Modal } from "antd";
@@ -563,7 +562,6 @@ function ChessComponent() {
         ) : (
           <>
             <div className="menu-train">
-              <Menu />
             </div>
             <div className="chess-content">
               <div className="player-info player-white">
