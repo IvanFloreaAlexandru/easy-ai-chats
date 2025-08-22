@@ -13,10 +13,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   const [showForgotModal, setShowForgotModal] = useState(false);
 
   // Login state
-  const [loginInput, setLoginInput] = useState({
-    username: "",
-    password: "",
-  });
+  const [loginInput, setLoginInput] = useState({ username: "", password: "" });
 
   // Register state
   const [registerInput, setRegisterInput] = useState({
@@ -44,21 +41,14 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   const [repeatPasswordValid, setRepeatPasswordValid] = useState(false);
   const [emailValid, setEmailValid] = useState(false);
 
+  // ---------------- Handlers ----------------
+
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       if (loginInput.username !== "" && loginInput.password !== "") {
-        const formData = new FormData();
-        formData.append("username", loginInput.username);
-        formData.append("password", loginInput.password);
-
-        // Simulare API call - înlocuiește cu API-ul tău real
         console.log("Login attempt:", loginInput);
-        
-        // Simulare răspuns succes
         alert("Login successful! (Demo mode)");
-        
-        // Reset form și închide popup
         setLoginInput({ username: "", password: "" });
         onClose();
       } else {
@@ -87,17 +77,15 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
         passwordDigitValid &&
         passwordSpecialCharValid
       ) {
-        // Simulare API call - înlocuiește cu API-ul tău real
         console.log("Register attempt:", {
           username: registerInput.username,
           email: registerInput.email,
           password: registerInput.password,
           registration_date: new Date().toISOString(),
         });
-        
+
         alert("Account registered successfully! (Demo mode)");
-        
-        // Reset form și închide popup
+
         setRegisterInput({
           username: "",
           email: "",
@@ -116,21 +104,17 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   const handleForgotPassword = async () => {
     try {
       if (!forgotInput.showCodeInput) {
-        // Prima etapă - trimite email și password pentru verificare
         if (forgotInput.email && forgotInput.password) {
           console.log("Forgot password verification:", {
             email: forgotInput.email,
             password: forgotInput.password,
           });
-          
-          // Simulare verificare
-          setForgotInput(prev => ({ ...prev, showCodeInput: true }));
+          setForgotInput((prev) => ({ ...prev, showCodeInput: true }));
           alert("Code sent to your email! (Demo mode)");
         } else {
           alert("Please enter both email and password");
         }
       } else {
-        // A doua etapă - verifică codul
         if (forgotInput.code) {
           console.log("Code verification:", forgotInput.code);
           alert("Password reset successful! (Demo mode)");
@@ -156,26 +140,20 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
     }
   };
 
-  // Validation effects
+  // ---------------- Effects ----------------
   useEffect(() => {
-    setUsernameValid(
-      /^[a-zA-Z]*$/.test(registerInput.username) && registerInput.username !== ""
-    );
+    setUsernameValid(/^[a-zA-Z]*$/.test(registerInput.username) && registerInput.username !== "");
     setPasswordLengthValid(registerInput.password.length >= 8);
     setPasswordUpperCaseValid(/[A-Z]/.test(registerInput.password));
     setPasswordLowerCaseValid(/[a-z]/.test(registerInput.password));
     setPasswordDigitValid(/\d/.test(registerInput.password));
-    setPasswordSpecialCharValid(
-      /[!@#$%^&*()_+\-=[\]{};:\\|,.<>/?]/.test(registerInput.password)
-    );
+    setPasswordSpecialCharValid(/[!@#$%^&*()_+\-=[\]{};:\\|,.<>/?]/.test(registerInput.password));
     setRepeatPasswordValid(
-      registerInput.password === registerInput.repeatPassword &&
-      registerInput.repeatPassword !== ""
+      registerInput.password === registerInput.repeatPassword && registerInput.repeatPassword !== ""
     );
     setEmailValid(/\S+@\S+\.\S+/.test(registerInput.email));
   }, [registerInput]);
 
-  // Reset states when popup closes
   useEffect(() => {
     if (!isOpen) {
       setIsLoginTab(true);
@@ -188,11 +166,12 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
     }
   }, [isOpen]);
 
+  // ---------------- UI ----------------
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4">
-      <div className="relative bg-background border border-border rounded-3xl shadow-2xl w-full max-w-lg mx-auto max-h-[95vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
+      <div className="relative bg-background border border-border rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto max-h-[95vh] overflow-hidden">
         <div className="max-h-[95vh] overflow-y-auto">
           {/* Close Button */}
           <button
@@ -206,220 +185,217 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
           <div className="flex bg-muted/50 rounded-t-3xl border-b border-border">
             <button
               onClick={() => setIsLoginTab(true)}
-              className={`flex-1 py-5 px-6 font-semibold transition-all duration-300 rounded-tl-3xl relative overflow-hidden ${
-                isLoginTab 
-                  ? "bg-primary text-primary-foreground shadow-lg" 
+              className={`flex-1 py-4 sm:py-5 px-4 sm:px-6 font-semibold transition-all duration-300 rounded-tl-3xl relative overflow-hidden ${
+                isLoginTab
+                  ? "bg-primary text-primary-foreground shadow-lg"
                   : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
               }`}
             >
-              <span className="relative z-10">Sign In</span>
-              {isLoginTab && (
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90"></div>
-              )}
+              Sign In
             </button>
             <button
               onClick={() => setIsLoginTab(false)}
-              className={`flex-1 py-5 px-6 font-semibold transition-all duration-300 rounded-tr-3xl relative overflow-hidden ${
-                !isLoginTab 
-                  ? "bg-primary text-primary-foreground shadow-lg" 
+              className={`flex-1 py-4 sm:py-5 px-4 sm:px-6 font-semibold transition-all duration-300 rounded-tr-3xl relative overflow-hidden ${
+                !isLoginTab
+                  ? "bg-primary text-primary-foreground shadow-lg"
                   : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
               }`}
             >
-              <span className="relative z-10">Sign Up</span>
-              {!isLoginTab && (
-                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90"></div>
-              )}
+              Sign Up
             </button>
           </div>
 
           {/* Content */}
-          <div className="p-6 sm:p-8">
-          {isLoginTab ? (
-            // Login Form
-            <form onSubmit={handleLoginSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Username
-                </label>
-                <div className="relative group">
-                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type="text"
-                    name="username"
-                    value={loginInput.username}
-                    onChange={(e) => handleInput(e, "login")}
-                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Enter your username"
-                  />
+          <div className="p-5 sm:p-6 md:p-8">
+            {isLoginTab ? (
+              /* -------- LOGIN -------- */
+              <form onSubmit={handleLoginSubmit} className="space-y-5 sm:space-y-6">
+                {/* Username */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Username</label>
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      name="username"
+                      value={loginInput.username}
+                      onChange={(e) => handleInput(e, "login")}
+                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Enter your username"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Password
-                </label>
-                <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={loginInput.password}
-                    onChange={(e) => handleInput(e, "login")}
-                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Enter your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
+                {/* Password */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={loginInput.password}
+                      onChange={(e) => handleInput(e, "login")}
+                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Enter your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              <button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
-              >
-                Sign In
-              </button>
-
-              <div className="text-center pt-2">
+                {/* Submit */}
                 <button
-                  type="button"
-                  onClick={() => setShowForgotModal(true)}
-                  className="text-primary hover:text-primary/80 text-sm transition-colors font-medium"
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 sm:py-4 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg"
                 >
-                  Forgot your password?
+                  Sign In
                 </button>
-              </div>
-            </form>
-          ) : (
-            // Register Form
-            <form onSubmit={handleRegisterSubmit} className="space-y-5">
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Username
-                </label>
-                <div className="relative group">
-                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type="text"
-                    name="username"
-                    value={registerInput.username}
-                    onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Enter your username"
-                  />
-                </div>
-                <div className="text-xs pl-1">
-                  <span className={`flex items-center gap-1 ${usernameValid ? "text-green-500" : "text-destructive"}`}>
-                    {usernameValid ? "✓" : "✗"} Only characters allowed
-                  </span>
-                </div>
-              </div>
 
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Email
-                </label>
-                <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type="email"
-                    name="email"
-                    value={registerInput.email}
-                    onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Enter your email"
-                  />
-                </div>
-                <div className="text-xs pl-1">
-                  <span className={`flex items-center gap-1 ${emailValid ? "text-green-500" : "text-destructive"}`}>
-                    {emailValid ? "✓" : "✗"} Valid email format
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Password
-                </label>
-                <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={registerInput.password}
-                    onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Enter your password"
-                  />
+                <div className="text-center">
                   <button
                     type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    onClick={() => setShowForgotModal(true)}
+                    className="text-primary hover:text-primary/80 text-sm font-medium"
                   >
-                    {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    Forgot your password?
                   </button>
                 </div>
-                <div className="space-y-1 text-xs pl-1">
-                  <div className={`flex items-center gap-1 ${passwordLengthValid ? "text-green-500" : "text-destructive"}`}>
-                    {passwordLengthValid ? "✓" : "✗"} At least 8 characters
+              </form>
+            ) : (
+              /* -------- REGISTER -------- */
+              <form onSubmit={handleRegisterSubmit} className="space-y-5">
+                {/* Username */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Username</label>
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="text"
+                      name="username"
+                      value={registerInput.username}
+                      onChange={(e) => handleInput(e, "register")}
+                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Enter your username"
+                    />
                   </div>
-                  <div className={`flex items-center gap-1 ${passwordUpperCaseValid ? "text-green-500" : "text-destructive"}`}>
-                    {passwordUpperCaseValid ? "✓" : "✗"} At least 1 uppercase letter
-                  </div>
-                  <div className={`flex items-center gap-1 ${passwordLowerCaseValid ? "text-green-500" : "text-destructive"}`}>
-                    {passwordLowerCaseValid ? "✓" : "✗"} At least 1 lowercase letter
-                  </div>
-                  <div className={`flex items-center gap-1 ${passwordDigitValid ? "text-green-500" : "text-destructive"}`}>
-                    {passwordDigitValid ? "✓" : "✗"} At least 1 digit
-                  </div>
-                  <div className={`flex items-center gap-1 ${passwordSpecialCharValid ? "text-green-500" : "text-destructive"}`}>
-                    {passwordSpecialCharValid ? "✓" : "✗"} At least 1 special character
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-foreground">
-                  Repeat Password
-                </label>
-                <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
-                  <input
-                    type={showRepeatPassword ? "text" : "password"}
-                    name="repeatPassword"
-                    value={registerInput.repeatPassword}
-                    onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
-                    placeholder="Repeat your password"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  <p
+                    className={`text-xs mt-1 ${
+                      usernameValid ? "text-green-500" : "text-destructive"
+                    }`}
                   >
-                    {showRepeatPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                  </button>
+                    {usernameValid ? "✓ Only characters allowed" : "✗ Only characters allowed"}
+                  </p>
                 </div>
-                <div className="text-xs pl-1">
-                  <span className={`flex items-center gap-1 ${repeatPasswordValid ? "text-green-500" : "text-destructive"}`}>
-                    {repeatPasswordValid ? "✓" : "✗"} Passwords match
-                  </span>
-                </div>
-              </div>
 
-              <button
-                type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
-              >
-                Sign Up
-              </button>
-            </form>
-          )}
+                {/* Email */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Email</label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type="email"
+                      name="email"
+                      value={registerInput.email}
+                      onChange={(e) => handleInput(e, "register")}
+                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+                  <p
+                    className={`text-xs mt-1 ${
+                      emailValid ? "text-green-500" : "text-destructive"
+                    }`}
+                  >
+                    {emailValid ? "✓ Valid email format" : "✗ Invalid email"}
+                  </p>
+                </div>
+
+                {/* Password */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={registerInput.password}
+                      onChange={(e) => handleInput(e, "register")}
+                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Enter your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  <div className="mt-2 space-y-1 text-xs">
+                    <p className={passwordLengthValid ? "text-green-500" : "text-destructive"}>
+                      {passwordLengthValid ? "✓" : "✗"} At least 8 characters
+                    </p>
+                    <p className={passwordUpperCaseValid ? "text-green-500" : "text-destructive"}>
+                      {passwordUpperCaseValid ? "✓" : "✗"} At least 1 uppercase letter
+                    </p>
+                    <p className={passwordLowerCaseValid ? "text-green-500" : "text-destructive"}>
+                      {passwordLowerCaseValid ? "✓" : "✗"} At least 1 lowercase letter
+                    </p>
+                    <p className={passwordDigitValid ? "text-green-500" : "text-destructive"}>
+                      {passwordDigitValid ? "✓" : "✗"} At least 1 digit
+                    </p>
+                    <p
+                      className={passwordSpecialCharValid ? "text-green-500" : "text-destructive"}
+                    >
+                      {passwordSpecialCharValid ? "✓" : "✗"} At least 1 special character
+                    </p>
+                  </div>
+                </div>
+
+                {/* Repeat Password */}
+                <div>
+                  <label className="block text-sm font-medium text-foreground">Repeat Password</label>
+                  <div className="relative">
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <input
+                      type={showRepeatPassword ? "text" : "password"}
+                      name="repeatPassword"
+                      value={registerInput.repeatPassword}
+                      onChange={(e) => handleInput(e, "register")}
+                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      placeholder="Repeat your password"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                    >
+                      {showRepeatPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
+                  <p
+                    className={`text-xs mt-1 ${
+                      repeatPasswordValid ? "text-green-500" : "text-destructive"
+                    }`}
+                  >
+                    {repeatPasswordValid ? "✓ Passwords match" : "✗ Passwords do not match"}
+                  </p>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 sm:py-4 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg"
+                >
+                  Sign Up
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
