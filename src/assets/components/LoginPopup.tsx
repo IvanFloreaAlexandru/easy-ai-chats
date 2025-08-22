@@ -191,7 +191,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4">
       <div className="relative bg-background border border-border rounded-3xl shadow-2xl w-full max-w-lg mx-auto max-h-[95vh] overflow-hidden">
         <div className="max-h-[95vh] overflow-y-auto">
           {/* Close Button */}

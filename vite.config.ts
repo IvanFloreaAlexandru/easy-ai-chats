@@ -6,14 +6,5 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 8080
-  },
-  build: {
-    target: 'esnext',
-    minify: 'esbuild',
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
-  },
+  }
 });

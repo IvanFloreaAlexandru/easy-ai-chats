@@ -5,9 +5,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 interface ChessSliderProps {
   Background?: React.ComponentType;
   Navbar?: React.ComponentType;
+  isLoginOpen?: boolean;
 }
 
-const ChessSlider: React.FC<ChessSliderProps> = ({ Background, Navbar }) => {
+const ChessSlider: React.FC<ChessSliderProps> = ({ Background, Navbar, isLoginOpen = false }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -99,7 +100,7 @@ const ChessSlider: React.FC<ChessSliderProps> = ({ Background, Navbar }) => {
       {Navbar && <Navbar />}
       
       {/* Main Slider Content */}
-      <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
+      <div className={`absolute inset-0 flex items-center justify-center p-8 z-10 transition-all duration-500 ${isLoginOpen ? 'transform -translate-x-32' : ''}`}>
         <div className="w-full max-w-7xl mx-auto relative">
         
         {/* Main Content Container */}
