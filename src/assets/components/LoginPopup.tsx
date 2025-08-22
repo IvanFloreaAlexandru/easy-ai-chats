@@ -170,35 +170,40 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black p-4">
-      <div className="relative bg-background border border-border rounded-3xl shadow-2xl w-full max-w-sm sm:max-w-md md:max-w-lg mx-auto max-h-[95vh] overflow-hidden">
-        <div className="max-h-[95vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex">
+      {/* Left side - Chess content background overlay */}
+      <div className="flex-1 bg-black/20 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none" />
+      
+      {/* Right side - Login popup */}
+      <div className="w-full lg:w-1/2 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex items-center justify-center p-4 lg:p-8">
+        <div className="relative bg-slate-900/95 border border-blue-500/30 rounded-2xl shadow-2xl w-full max-w-md max-h-[95vh] overflow-hidden backdrop-blur-xl">
+          <div className="max-h-[95vh] overflow-y-auto">
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 z-10 p-3 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all duration-200"
+            className="absolute top-4 right-4 z-10 p-2 text-blue-200 hover:text-white hover:bg-blue-600/30 rounded-full transition-all duration-200"
           >
             <X className="w-5 h-5" />
           </button>
 
           {/* Header Tabs */}
-          <div className="flex bg-muted/50 rounded-t-3xl border-b border-border">
+          <div className="flex bg-slate-800/50 rounded-t-2xl border-b border-blue-500/20">
             <button
               onClick={() => setIsLoginTab(true)}
-              className={`flex-1 py-4 sm:py-5 px-4 sm:px-6 font-semibold transition-all duration-300 rounded-tl-3xl relative overflow-hidden ${
+              className={`flex-1 py-4 px-4 font-semibold transition-all duration-300 rounded-tl-2xl relative overflow-hidden ${
                 isLoginTab
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg"
+                  : "bg-transparent text-blue-200 hover:text-white hover:bg-blue-600/20"
               }`}
             >
               Sign In
             </button>
             <button
               onClick={() => setIsLoginTab(false)}
-              className={`flex-1 py-4 sm:py-5 px-4 sm:px-6 font-semibold transition-all duration-300 rounded-tr-3xl relative overflow-hidden ${
+              className={`flex-1 py-4 px-4 font-semibold transition-all duration-300 rounded-tr-2xl relative overflow-hidden ${
                 !isLoginTab
-                  ? "bg-primary text-primary-foreground shadow-lg"
-                  : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
+                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg"
+                  : "bg-transparent text-blue-200 hover:text-white hover:bg-blue-600/20"
               }`}
             >
               Sign Up
@@ -206,21 +211,21 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
           </div>
 
           {/* Content */}
-          <div className="p-5 sm:p-6 md:p-8">
+          <div className="p-6">
             {isLoginTab ? (
               /* -------- LOGIN -------- */
               <form onSubmit={handleLoginSubmit} className="space-y-5 sm:space-y-6">
-                {/* Username */}
+                 {/* Username */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Username</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Username</label>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type="text"
                       name="username"
                       value={loginInput.username}
                       onChange={(e) => handleInput(e, "login")}
-                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Enter your username"
                     />
                   </div>
@@ -228,21 +233,21 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Password</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
                       value={loginInput.password}
                       onChange={(e) => handleInput(e, "login")}
-                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-12 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Enter your password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white transition"
                     >
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
@@ -252,7 +257,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 sm:py-4 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg shadow-blue-500/25"
                 >
                   Sign In
                 </button>
@@ -261,7 +266,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
                   <button
                     type="button"
                     onClick={() => setShowForgotModal(true)}
-                    className="text-primary hover:text-primary/80 text-sm font-medium"
+                    className="text-blue-300 hover:text-blue-200 text-sm font-medium transition"
                   >
                     Forgot your password?
                   </button>
@@ -272,21 +277,21 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
               <form onSubmit={handleRegisterSubmit} className="space-y-5">
                 {/* Username */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Username</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Username</label>
                   <div className="relative">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type="text"
                       name="username"
                       value={registerInput.username}
                       onChange={(e) => handleInput(e, "register")}
-                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Enter your username"
                     />
                   </div>
                   <p
                     className={`text-xs mt-1 ${
-                      usernameValid ? "text-green-500" : "text-destructive"
+                      usernameValid ? "text-green-400" : "text-red-400"
                     }`}
                   >
                     {usernameValid ? "✓ Only characters allowed" : "✗ Only characters allowed"}
@@ -295,21 +300,21 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Email</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Email</label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type="email"
                       name="email"
                       value={registerInput.email}
                       onChange={(e) => handleInput(e, "register")}
-                      className="w-full pl-12 pr-4 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Enter your email"
                     />
                   </div>
                   <p
                     className={`text-xs mt-1 ${
-                      emailValid ? "text-green-500" : "text-destructive"
+                      emailValid ? "text-green-400" : "text-red-400"
                     }`}
                   >
                     {emailValid ? "✓ Valid email format" : "✗ Invalid email"}
@@ -318,40 +323,40 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Password</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type={showPassword ? "text" : "password"}
                       name="password"
                       value={registerInput.password}
                       onChange={(e) => handleInput(e, "register")}
-                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-12 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Enter your password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white transition"
                     >
                       {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
                   <div className="mt-2 space-y-1 text-xs">
-                    <p className={passwordLengthValid ? "text-green-500" : "text-destructive"}>
+                    <p className={passwordLengthValid ? "text-green-400" : "text-red-400"}>
                       {passwordLengthValid ? "✓" : "✗"} At least 8 characters
                     </p>
-                    <p className={passwordUpperCaseValid ? "text-green-500" : "text-destructive"}>
+                    <p className={passwordUpperCaseValid ? "text-green-400" : "text-red-400"}>
                       {passwordUpperCaseValid ? "✓" : "✗"} At least 1 uppercase letter
                     </p>
-                    <p className={passwordLowerCaseValid ? "text-green-500" : "text-destructive"}>
+                    <p className={passwordLowerCaseValid ? "text-green-400" : "text-red-400"}>
                       {passwordLowerCaseValid ? "✓" : "✗"} At least 1 lowercase letter
                     </p>
-                    <p className={passwordDigitValid ? "text-green-500" : "text-destructive"}>
+                    <p className={passwordDigitValid ? "text-green-400" : "text-red-400"}>
                       {passwordDigitValid ? "✓" : "✗"} At least 1 digit
                     </p>
                     <p
-                      className={passwordSpecialCharValid ? "text-green-500" : "text-destructive"}
+                      className={passwordSpecialCharValid ? "text-green-400" : "text-red-400"}
                     >
                       {passwordSpecialCharValid ? "✓" : "✗"} At least 1 special character
                     </p>
@@ -360,28 +365,28 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
                 {/* Repeat Password */}
                 <div>
-                  <label className="block text-sm font-medium text-foreground">Repeat Password</label>
+                  <label className="block text-sm font-medium text-blue-100 mb-2">Repeat Password</label>
                   <div className="relative">
-                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-300" />
                     <input
                       type={showRepeatPassword ? "text" : "password"}
                       name="repeatPassword"
                       value={registerInput.repeatPassword}
                       onChange={(e) => handleInput(e, "register")}
-                      className="w-full pl-12 pr-12 py-3 bg-input border border-border rounded-xl placeholder-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20 transition"
+                      className="w-full pl-12 pr-12 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition backdrop-blur-sm"
                       placeholder="Repeat your password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-blue-300 hover:text-white transition"
                     >
                       {showRepeatPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
                   <p
                     className={`text-xs mt-1 ${
-                      repeatPasswordValid ? "text-green-500" : "text-destructive"
+                      repeatPasswordValid ? "text-green-400" : "text-red-400"
                     }`}
                   >
                     {repeatPasswordValid ? "✓ Passwords match" : "✗ Passwords do not match"}
@@ -390,7 +395,7 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
                 <button
                   type="submit"
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3 sm:py-4 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-6 rounded-xl transition transform hover:scale-[1.02] shadow-lg shadow-blue-500/25"
                 >
                   Sign Up
                 </button>
@@ -399,19 +404,20 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
           </div>
         </div>
       </div>
+      </div>
 
       {/* Forgot Password Modal */}
       {showForgotModal && (
         <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-          <div className="bg-background border border-border rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl">
+          <div className="bg-slate-900/95 border border-blue-500/30 rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl backdrop-blur-xl">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-semibold text-foreground">Forgot Password</h3>
+              <h3 className="text-xl font-semibold text-blue-100">Forgot Password</h3>
               <button
                 onClick={() => {
                   setShowForgotModal(false);
                   setForgotInput({ email: "", password: "", code: "", showCodeInput: false });
                 }}
-                className="text-muted-foreground hover:text-foreground p-2 hover:bg-muted rounded-full transition-all"
+                className="text-blue-300 hover:text-white p-2 hover:bg-blue-600/30 rounded-full transition-all"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -420,48 +426,48 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
             {!forgotInput.showCodeInput ? (
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-foreground">Email</label>
+                  <label className="block text-sm font-medium text-blue-100">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={forgotInput.email}
                     onChange={(e) => handleInput(e, "forgot")}
-                    className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all backdrop-blur-sm"
                     placeholder="Enter your email"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-foreground">Current Password</label>
+                  <label className="block text-sm font-medium text-blue-100">Current Password</label>
                   <input
                     type="password"
                     name="password"
                     value={forgotInput.password}
                     onChange={(e) => handleInput(e, "forgot")}
-                    className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all backdrop-blur-sm"
                     placeholder="Enter your current password"
                   />
                 </div>
                 <button
                   onClick={handleForgotPassword}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg shadow-blue-500/25"
                 >
                   Send Code
                 </button>
               </div>
             ) : (
               <div className="space-y-5">
-                <p className="text-muted-foreground text-sm">Enter the code sent to your email:</p>
+                <p className="text-blue-200 text-sm">Enter the code sent to your email:</p>
                 <input
                   type="text"
                   name="code"
                   value={forgotInput.code}
                   onChange={(e) => handleInput(e, "forgot")}
-                  className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                  className="w-full px-4 py-3 bg-slate-800/50 border border-blue-500/30 rounded-xl text-white placeholder-blue-200/60 focus:outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all backdrop-blur-sm"
                   placeholder="Enter verification code"
                 />
                 <button
                   onClick={handleForgotPassword}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg shadow-blue-500/25"
                 >
                   Verify Code
                 </button>
