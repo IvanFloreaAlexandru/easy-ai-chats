@@ -191,80 +191,87 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto border border-gray-700">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-full transition-all"
-        >
-          <X className="w-5 h-5" />
-        </button>
-
-        {/* Header Tabs */}
-        <div className="flex bg-gray-800 rounded-t-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4">
+      <div className="relative bg-background border border-border rounded-3xl shadow-2xl w-full max-w-lg mx-auto max-h-[95vh] overflow-hidden">
+        <div className="max-h-[95vh] overflow-y-auto">
+          {/* Close Button */}
           <button
-            onClick={() => setIsLoginTab(true)}
-            className={`flex-1 py-4 px-6 font-semibold transition-all rounded-tl-2xl ${
-              isLoginTab 
-                ? "bg-blue-600 text-white shadow-lg" 
-                : "bg-gray-800 text-gray-300 hover:text-white hover:bg-gray-700"
-            }`}
+            onClick={onClose}
+            className="absolute top-6 right-6 z-10 p-3 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full transition-all duration-200"
           >
-            Sign In
+            <X className="w-5 h-5" />
           </button>
-          <button
-            onClick={() => setIsLoginTab(false)}
-            className={`flex-1 py-4 px-6 font-semibold transition-all rounded-tr-2xl ${
-              !isLoginTab 
-                ? "bg-blue-600 text-white shadow-lg" 
-                : "bg-gray-800 text-gray-300 hover:text-white hover:bg-gray-700"
-            }`}
-          >
-            Sign Up
-          </button>
-        </div>
 
-        {/* Content */}
-        <div className="p-6">
+          {/* Header Tabs */}
+          <div className="flex bg-muted/50 rounded-t-3xl border-b border-border">
+            <button
+              onClick={() => setIsLoginTab(true)}
+              className={`flex-1 py-5 px-6 font-semibold transition-all duration-300 rounded-tl-3xl relative overflow-hidden ${
+                isLoginTab 
+                  ? "bg-primary text-primary-foreground shadow-lg" 
+                  : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
+              }`}
+            >
+              <span className="relative z-10">Sign In</span>
+              {isLoginTab && (
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90"></div>
+              )}
+            </button>
+            <button
+              onClick={() => setIsLoginTab(false)}
+              className={`flex-1 py-5 px-6 font-semibold transition-all duration-300 rounded-tr-3xl relative overflow-hidden ${
+                !isLoginTab 
+                  ? "bg-primary text-primary-foreground shadow-lg" 
+                  : "bg-transparent text-muted-foreground hover:text-foreground hover:bg-muted/80"
+              }`}
+            >
+              <span className="relative z-10">Sign Up</span>
+              {!isLoginTab && (
+                <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/90"></div>
+              )}
+            </button>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 sm:p-8">
           {isLoginTab ? (
             // Login Form
-            <form onSubmit={handleLoginSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+            <form onSubmit={handleLoginSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Username
                 </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type="text"
                     name="username"
                     value={loginInput.username}
                     onChange={(e) => handleInput(e, "login")}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Enter your username"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={loginInput.password}
                     onChange={(e) => handleInput(e, "login")}
-                    className="w-full pl-10 pr-12 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
@@ -273,16 +280,16 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
               >
                 Sign In
               </button>
 
-              <div className="text-center">
+              <div className="text-center pt-2">
                 <button
                   type="button"
                   onClick={() => setShowForgotModal(true)}
-                  className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+                  className="text-primary hover:text-primary/80 text-sm transition-colors font-medium"
                 >
                   Forgot your password?
                 </button>
@@ -290,116 +297,116 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
             </form>
           ) : (
             // Register Form
-            <form onSubmit={handleRegisterSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+            <form onSubmit={handleRegisterSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Username
                 </label>
-                <div className="relative">
-                  <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type="text"
                     name="username"
                     value={registerInput.username}
                     onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Enter your username"
                   />
                 </div>
-                <div className="mt-1 text-xs">
-                  <span className={usernameValid ? "text-green-400" : "text-red-400"}>
+                <div className="text-xs pl-1">
+                  <span className={`flex items-center gap-1 ${usernameValid ? "text-green-500" : "text-destructive"}`}>
                     {usernameValid ? "✓" : "✗"} Only characters allowed
                   </span>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Email
                 </label>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type="email"
                     name="email"
                     value={registerInput.email}
                     onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-10 pr-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-4 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Enter your email"
                   />
                 </div>
-                <div className="mt-1 text-xs">
-                  <span className={emailValid ? "text-green-400" : "text-red-400"}>
+                <div className="text-xs pl-1">
+                  <span className={`flex items-center gap-1 ${emailValid ? "text-green-500" : "text-destructive"}`}>
                     {emailValid ? "✓" : "✗"} Valid email format
                   </span>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
                     value={registerInput.password}
                     onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-10 pr-12 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Enter your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
-                <div className="mt-1 space-y-1 text-xs">
-                  <div className={passwordLengthValid ? "text-green-400" : "text-red-400"}>
+                <div className="space-y-1 text-xs pl-1">
+                  <div className={`flex items-center gap-1 ${passwordLengthValid ? "text-green-500" : "text-destructive"}`}>
                     {passwordLengthValid ? "✓" : "✗"} At least 8 characters
                   </div>
-                  <div className={passwordUpperCaseValid ? "text-green-400" : "text-red-400"}>
+                  <div className={`flex items-center gap-1 ${passwordUpperCaseValid ? "text-green-500" : "text-destructive"}`}>
                     {passwordUpperCaseValid ? "✓" : "✗"} At least 1 uppercase letter
                   </div>
-                  <div className={passwordLowerCaseValid ? "text-green-400" : "text-red-400"}>
+                  <div className={`flex items-center gap-1 ${passwordLowerCaseValid ? "text-green-500" : "text-destructive"}`}>
                     {passwordLowerCaseValid ? "✓" : "✗"} At least 1 lowercase letter
                   </div>
-                  <div className={passwordDigitValid ? "text-green-400" : "text-red-400"}>
+                  <div className={`flex items-center gap-1 ${passwordDigitValid ? "text-green-500" : "text-destructive"}`}>
                     {passwordDigitValid ? "✓" : "✗"} At least 1 digit
                   </div>
-                  <div className={passwordSpecialCharValid ? "text-green-400" : "text-red-400"}>
+                  <div className={`flex items-center gap-1 ${passwordSpecialCharValid ? "text-green-500" : "text-destructive"}`}>
                     {passwordSpecialCharValid ? "✓" : "✗"} At least 1 special character
                   </div>
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-foreground">
                   Repeat Password
                 </label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                <div className="relative group">
+                  <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                   <input
                     type={showRepeatPassword ? "text" : "password"}
                     name="repeatPassword"
                     value={registerInput.repeatPassword}
                     onChange={(e) => handleInput(e, "register")}
-                    className="w-full pl-10 pr-12 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full pl-12 pr-14 py-4 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all duration-200"
                     placeholder="Repeat your password"
                   />
                   <button
                     type="button"
                     onClick={() => setShowRepeatPassword(!showRepeatPassword)}
-                    className="absolute right-3 top-3 text-gray-400 hover:text-gray-300"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {showRepeatPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                   </button>
                 </div>
-                <div className="mt-1 text-xs">
-                  <span className={repeatPasswordValid ? "text-green-400" : "text-red-400"}>
+                <div className="text-xs pl-1">
+                  <span className={`flex items-center gap-1 ${repeatPasswordValid ? "text-green-500" : "text-destructive"}`}>
                     {repeatPasswordValid ? "✓" : "✗"} Passwords match
                   </span>
                 </div>
@@ -407,77 +414,78 @@ const LoginPopup = ({ isOpen, onClose }: LoginPopupProps) => {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
               >
                 Sign Up
               </button>
             </form>
           )}
+          </div>
         </div>
       </div>
 
       {/* Forgot Password Modal */}
       {showForgotModal && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/40">
-          <div className="bg-gray-900 rounded-xl p-6 w-full max-w-sm mx-4 border border-gray-700">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-white">Forgot Password</h3>
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-background border border-border rounded-2xl p-6 w-full max-w-md mx-auto shadow-2xl">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-foreground">Forgot Password</h3>
               <button
                 onClick={() => {
                   setShowForgotModal(false);
                   setForgotInput({ email: "", password: "", code: "", showCodeInput: false });
                 }}
-                className="text-gray-400 hover:text-white"
+                className="text-muted-foreground hover:text-foreground p-2 hover:bg-muted rounded-full transition-all"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
             
             {!forgotInput.showCodeInput ? (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm text-gray-300 mb-2">Email</label>
+              <div className="space-y-5">
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Email</label>
                   <input
                     type="email"
                     name="email"
                     value={forgotInput.email}
                     onChange={(e) => handleInput(e, "forgot")}
-                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                     placeholder="Enter your email"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm text-gray-300 mb-2">Current Password</label>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-foreground">Current Password</label>
                   <input
                     type="password"
                     name="password"
                     value={forgotInput.password}
                     onChange={(e) => handleInput(e, "forgot")}
-                    className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                     placeholder="Enter your current password"
                   />
                 </div>
                 <button
                   onClick={handleForgotPassword}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
                 >
                   Send Code
                 </button>
               </div>
             ) : (
-              <div className="space-y-4">
-                <p className="text-gray-300 text-sm">Enter the code sent to your email:</p>
+              <div className="space-y-5">
+                <p className="text-muted-foreground text-sm">Enter the code sent to your email:</p>
                 <input
                   type="text"
                   name="code"
                   value={forgotInput.code}
                   onChange={(e) => handleInput(e, "forgot")}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="w-full px-4 py-3 bg-input border border-border rounded-xl text-foreground placeholder-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                   placeholder="Enter verification code"
                 />
                 <button
                   onClick={handleForgotPassword}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-[1.02] shadow-lg"
                 >
                   Verify Code
                 </button>
